@@ -8,6 +8,7 @@ import br.com.tivit.mvpsaude.service.contract.FormService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ public class FormServiceImpl implements FormService {
     @Override
     public Boolean register(FormDTO dto) {
         Form form = new Form(dto);
+        form.setDate(LocalDateTime.now());
         repository.save(form);
         return Boolean.TRUE;
     }

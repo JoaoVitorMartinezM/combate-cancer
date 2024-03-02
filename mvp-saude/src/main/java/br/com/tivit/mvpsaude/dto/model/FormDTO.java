@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -17,7 +18,7 @@ public class FormDTO {
     private String email;
     private String sex;
     private LocalDate birthday;
-    private String diseases;
+    private List<String> diseases;
     private Boolean smoke;
     private Boolean quitSmoke;
     private Boolean drink;

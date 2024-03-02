@@ -1,14 +1,14 @@
 package br.com.tivit.mvpsaude.model;
 
 import br.com.tivit.mvpsaude.dto.model.FormDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,13 +17,15 @@ import java.time.LocalDateTime;
 public class Form {
 
     @Id
+    @GeneratedValue
     private Long id;
     private LocalDateTime date;
     private String fullName;
     private String email;
     private String sex;
     private LocalDate birthday;
-    private String diseases;
+    @ElementCollection
+    private List<String> diseases;
     private Boolean smoke;
     private Boolean quitSmoke;
     private Boolean drink;

@@ -1,0 +1,89 @@
+<div class="d-flex justify-content-center">
+  <mat-card class="w-50">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" class="d-flex flex-column px-4">
+      <div [ngSwitch]="screenShowed">
+
+        <div *ngSwitchCase="1">
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="fullName">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email">
+          </mat-form-field>
+        </div>
+
+        <div *ngSwitchCase="2">
+          <mat-form-field>
+            <mat-label>Data de Nascimento</mat-label>
+            <input [matDatepicker]="picker" formControlName="birthday" matInput>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Sexo</mat-label>
+            <mat-select formControlName="sex">
+              <mat-option value="masculino">Masculino</mat-option>
+              <mat-option value="feminino">Feminino</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div *ngSwitchCase="2">
+          <mat-form-field>
+            <mat-label>Você tem alguma doença?</mat-label>
+            <mat-select [multiple]="true" formControlName="diseases">
+              <mat-option value="diabetes">Diabetes</mat-option>
+              <mat-option value="hipertensão">Hipertensão</mat-option>
+              <mat-option value="hipotirioidismo">Hipotirioidismo</mat-option>
+              <mat-option value="lupus">Lupus</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div *ngSwitchCase="3">
+          <mat-checkbox formControlName="smoke">Eu fumo</mat-checkbox>
+
+          <mat-checkbox formControlName="quitSmoke">Eu era fumante</mat-checkbox>
+        </div>
+
+        <div *ngSwitchCase="4">
+
+          <mat-checkbox formControlName="drink">Eu bebo</mat-checkbox>
+
+          <mat-checkbox formControlName="haveCancer">Eu já tive/tenho câncer</mat-checkbox>
+
+          <mat-checkbox formControlName="cancerHistory">Tenho histórico de câncer na família</mat-checkbox>
+
+        </div>
+
+        <div *ngSwitchCase="5">
+
+          <mat-checkbox formControlName="wentDentist">Eu fui ao dentista nos últimos 12 meses</mat-checkbox>
+
+          <mat-checkbox formControlName="sunscreen">Eu uso protetor solar</mat-checkbox>
+
+          <mat-checkbox formControlName="sunstroke">Eu já tive câncer de pele</mat-checkbox>
+
+        </div>
+
+        <div *ngSwitchCase="6">
+
+          <mat-checkbox formControlName="consumeMate">Eu bebo chimarrão</mat-checkbox>
+
+          <mat-checkbox formControlName="skinLesion">Eu tenho lesões na pele</mat-checkbox>
+
+          <button mat-raised-button type="submit">Enviar</button>
+
+        </div>
+
+      </div>
+
+      <button mat-raised-button type="button" (click)="next()">Avançar</button>
+
+    </form>
+  </mat-card>
+</div>

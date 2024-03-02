@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MAT_DATE_LOCALE} from "@angular/material/core";
+import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import {LoaderInterceptor} from "./interceptor/loader.interceptor";
@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {LoaderComponent} from "./components/loader/loader.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {LoginComponent} from "./pages/login/login.component";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -22,7 +22,10 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
 import {NavbarComponent} from "./components/navbar/navbar.component";
-import { FormuarioComponent } from './components/formuario/formuario.component';
+import { FormComponent } from './components/form/form.component';
+import {HomeComponent} from "./pages/home/home.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -30,13 +33,14 @@ import { FormuarioComponent } from './components/formuario/formuario.component';
     LoaderComponent,
     LoginComponent,
     NavbarComponent,
-    FormuarioComponent
-
+    FormComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
@@ -47,23 +51,30 @@ import { FormuarioComponent } from './components/formuario/formuario.component';
     MatCardModule,
     MatSnackBarModule,
     DragDropModule,
-    MatIconModule
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule
   ],
   providers: [
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'pt-BR'
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
       multi: true,
     },
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
+  ],
+  exports: [
+    FormComponent
   ],
   bootstrap: [AppComponent]
 })
