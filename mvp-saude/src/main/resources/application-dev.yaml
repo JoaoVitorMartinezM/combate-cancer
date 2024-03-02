@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/stock
+    username: postgres
+    password: postgres
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  sendgrid:
+    api-key: api-key
+  web:
+    resources:
+      add-mappings: false
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    web: debug
+    sql: debug
+
+personal:
+  mail:
+    fromMail: any-value@outlook.com
+    fromName: any-pass
