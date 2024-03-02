@@ -35,9 +35,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( (authorize) -> authorize
-                .requestMatchers("/auth/**", "/test/**", "/swagger-ui/**", "/v3/**").permitAll()
-                .requestMatchers("/funcionario/**").hasRole("GERENTE")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
         ).addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
