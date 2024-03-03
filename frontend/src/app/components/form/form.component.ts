@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, NonNullableFormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, NonNullableFormBuilder, ValidationErrors, Validators} from "@angular/forms";
 import {FormService} from "../../service/form.service";
+import {retry} from "rxjs";
 
 @Component({
   selector: 'app-form',
@@ -27,6 +28,8 @@ export class FormComponent {
   consumeMate?: boolean;
   sunstroke?: boolean;
   skinLesion?: boolean;
+
+  protected result: any[] = [];
 
   constructor(private fb: NonNullableFormBuilder, private formService: FormService) {
 
@@ -68,15 +71,12 @@ export class FormComponent {
   }
 
   next() {
-    let result : number = 0
     switch (this.screenShowed) {
       case 1:
-        result = this.fieldsValidation();
-        result === 2 ? this.screenShowed++ : this.screenShowed;
+        !this.fieldsValidation(['fullName', 'email']) ? this.screenShowed++ : this.screenShowed;
         break;
       case 2:
-        result = this.fieldsValidation();
-        result === 0 ? this.screenShowed++ : this.screenShowed;
+        !this.fieldsValidation(['birthday', 'sex']) ? this.screenShowed++ : this.screenShowed;
         break;
       default:
         this.screenShowed++;
@@ -84,13 +84,35 @@ export class FormComponent {
     }
   }
 
-  fieldsValidation() : number {
-    let errorsCounter = 0;
+  // fieldsValidation() : number {
+  //   let errorsCounter = 0;
+  //   Object.keys(this.formGroup.controls).forEach(key => {
+  //     this.formGroup.controls[key].errors ? errorsCounter++ : errorsCounter
+  //     this.formGroup.get(key)?.markAsTouched()
+  //   });
+  //   return errorsCounter;
+  // }
+
+  fieldsValidation(fields : string[]) : boolean{
+    this.result = []
     Object.keys(this.formGroup.controls).forEach(key => {
-      this.formGroup.controls[key].errors ? errorsCounter++ : errorsCounter
-      this.formGroup.get(key)?.markAsTouched()
+      const controlErrors: ValidationErrors | null | undefined = this.formGroup.get(key)?.errors;
+      if (controlErrors && fields.indexOf(key) !== -1) {
+        this.formGroup.get(key)?.markAsTouched()
+        Object.keys(controlErrors).forEach(keyError => {
+          this.result.push({
+            'control': key,
+            'error': keyError,
+            'value': controlErrors[keyError]
+          });
+        });
+
+      }
     });
-    return errorsCounter;
+
+    return this.result.length > 0;
+
+
   }
 
 }
