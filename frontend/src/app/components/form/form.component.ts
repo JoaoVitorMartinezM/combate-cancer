@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, NonNullableFormBuilder, Validators} from "@angular/forms";
 import {FormService} from "../../service/form.service";
 
 @Component({
@@ -28,14 +28,14 @@ export class FormComponent {
   sunstroke?: boolean;
   skinLesion?: boolean;
 
-  constructor(private fb: FormBuilder, private formService: FormService) {
+  constructor(private fb: NonNullableFormBuilder, private formService: FormService) {
 
     this.formGroup = fb.group({
-      fullName: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]],
-      birthday: [null, [Validators.required]],
-      sex: [null, [Validators.required]],
-      diseases: [null, [Validators.required]],
+      fullName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      birthday: ['', [Validators.required]],
+      sex: ['', [Validators.required]],
+      diseases: [[''], [Validators.required]],
       smoke: [false, [Validators.required]],
       quitSmoke: [false, [Validators.required]],
       drink: [false, [Validators.required]],
@@ -52,6 +52,7 @@ export class FormComponent {
   submit() {
     if(this.formGroup.valid) {
 
+
       this.formService.submit(this.formGroup.getRawValue())
         .subscribe({
           next: (value: Boolean) => {
@@ -67,54 +68,29 @@ export class FormComponent {
   }
 
   next() {
+    let result : number = 0
     switch (this.screenShowed) {
       case 1:
-        this.validateScreen1();
+        result = this.fieldsValidation();
+        result === 2 ? this.screenShowed++ : this.screenShowed;
         break;
       case 2:
-        this.validateScreen2();
+        result = this.fieldsValidation();
+        result === 0 ? this.screenShowed++ : this.screenShowed;
         break;
-
-    }
-
-
-  }
-
-  validateScreen1() {
-    if(this.screenShowed == 1) {
-      this.fullName = this.formGroup.get('fullName')?.value;
-      this.email = this.formGroup.get('email')?.value;
-
-      if(!this.fullName) {
-        this.formGroup.get('fullName')?.markAsTouched()
-      }
-      if(!this.email) {
-        this.formGroup.get('email')?.markAsTouched()
-      }
-      if(this.fullName && this.email && this.formGroup.get('email')?.valid) {
+      default:
         this.screenShowed++;
-      }
-
-      console.log(this.formGroup.get('fullName')?.value);
-      console.log(this.formGroup.get('email')?.value);
+        break;
     }
   }
 
-  validateScreen2() {
-    this.birthday = this.formGroup.get('birthday')?.value;
-    this.sex = this.formGroup.get('sex')?.value;
-
-    if(!this.birthday) {
-      this.formGroup.get('birthday')?.markAsTouched()
-    }
-    if(!this.sex) {
-      this.formGroup.get('sex')?.markAsTouched()
-    }
-    if(this.birthday && this.sex) {
-      this.screenShowed++;
-    }
-
-    console.log(this.formGroup.get('fullName')?.value);
-    console.log(this.formGroup.get('email')?.value);
+  fieldsValidation() : number {
+    let errorsCounter = 0;
+    Object.keys(this.formGroup.controls).forEach(key => {
+      this.formGroup.controls[key].errors ? errorsCounter++ : errorsCounter
+      this.formGroup.get(key)?.markAsTouched()
+    });
+    return errorsCounter;
   }
+
 }
