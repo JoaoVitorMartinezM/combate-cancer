@@ -7,12 +7,17 @@
           <mat-form-field>
             <mat-label>Nome</mat-label>
             <input matInput type="text" formControlName="fullName">
-<!--            <span *ngIf="result.indexOf('fullName') !== -1 ">Campo obrigatório</span>-->
+            <div *ngIf="!formGroup.get('fullName')?.errors?.['require'] && formGroup.get('fullName')?.touched">
+              Nome obrigatório
+            </div>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>E-mail</mat-label>
             <input matInput type="email" formControlName="email">
+            <div *ngIf="!formGroup.get('email')?.errors?.['require'] && formGroup.get('email')?.touched">
+              Campo e-mail é obrigatório.
+            </div>
           </mat-form-field>
         </div>
 
@@ -20,6 +25,9 @@
           <mat-form-field>
             <mat-label>Data de Nascimento</mat-label>
             <input [matDatepicker]="picker" formControlName="birthday" matInput>
+            <div *ngIf="!formGroup.get('birthday')?.errors?.['require'] && formGroup.get('birthday')?.touched">
+              Campo data é obrigatório.
+            </div>
             <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -30,6 +38,9 @@
               <mat-option value="masculino">Masculino</mat-option>
               <mat-option value="feminino">Feminino</mat-option>
             </mat-select>
+            <div *ngIf="!formGroup.get('sex')?.errors?.['require'] && formGroup.get('sex')?.touched">
+              Campo sexo é obrigatório.
+            </div>
           </mat-form-field>
         </div>
 
