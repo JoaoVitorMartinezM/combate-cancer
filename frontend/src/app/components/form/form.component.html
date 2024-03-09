@@ -48,12 +48,15 @@
         </div>
 
         <div *ngSwitchCase="3">
-          <mat-checkbox formControlName="smoke">Eu fumo</mat-checkbox>
-
-          <mat-checkbox formControlName="quitSmoke">Eu era fumante</mat-checkbox>
-          <mat-checkbox formControlName="drink">Eu bebo</mat-checkbox>
-          <mat-checkbox formControlName="consumeMate">Eu bebo chimarrão</mat-checkbox>
-          <mat-checkbox formControlName="wentDentist">Eu fui ao dentista nos últimos 12 meses</mat-checkbox>
+          <mat-select formControlName="smoke">
+            <mat-label>Tabagismo</mat-label>
+            <mat-option *ngfor="let option of smokeOptions" [value]="option.id">{{ option.label }}</mat-option>
+          </mat-select>
+<!--          <mat-checkbox formControlName="smoke">Eu fumo</mat-checkbox>-->
+<!--          <mat-checkbox formControlName="quitSmoke">Eu era fumante</mat-checkbox>-->
+<!--          <mat-checkbox formControlName="drink">Eu bebo</mat-checkbox>-->
+<!--          <mat-checkbox formControlName="consumeMate">Eu bebo chimarrão</mat-checkbox>-->
+<!--          <mat-checkbox formControlName="wentDentist">Eu fui ao dentista nos últimos 12 meses</mat-checkbox>-->
         </div>
 
         <div *ngSwitchCase="4">

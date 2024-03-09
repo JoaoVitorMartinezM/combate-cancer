@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, NonNullableFormBuilder, ValidationErrors, Validators} from "@angular/forms";
 import {FormService} from "../../service/form.service";
 import {retry} from "rxjs";
+import {SmokeOption} from "../../model/smokeOption.model";
 
 @Component({
   selector: 'app-form',
@@ -12,6 +13,8 @@ export class FormComponent {
 
   formGroup: FormGroup;
   screenShowed: number = 1;
+
+  smokeOptions: Array<SmokeOption> = [];
 
   fullName?: string;
   email?: string;
@@ -32,6 +35,13 @@ export class FormComponent {
   protected result: any[] = [];
 
   constructor(private fb: NonNullableFormBuilder, private formService: FormService) {
+
+    this.formService.getSmokeOption().subscribe({
+      next: (data) => {
+        this.smokeOptions = data;
+      }
+
+    });
 
     this.formGroup = fb.group({
       fullName: ['', [Validators.required]],
