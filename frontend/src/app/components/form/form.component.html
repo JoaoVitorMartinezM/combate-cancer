@@ -1,28 +1,25 @@
-<div class="d-flex justify-content-center">
-  <mat-card class="w-50">
-    <form [formGroup]="formGroup" (ngSubmit)="submit()" class="d-flex flex-column px-4">
-      <div [ngSwitch]="screenShowed">
-
-        <div *ngSwitchCase="1">
-          <mat-form-field>
+<div class="d-flex justify-content-center h-75">
+  <mat-card class="w-50 row ">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" class="d-flex flex-column justify-content-evenly align-items-start px-5 py-5 col-12">
+      <h2>DADOS PESSOAIS</h2>
+      <div [ngSwitch]="screenShowed" class="col-12">
+        <div *ngSwitchCase="1" >
+          <mat-form-field class="col-6">
             <mat-label>Nome</mat-label>
             <input matInput type="text" formControlName="fullName">
-            <div *ngIf="!formGroup.get('fullName')?.errors?.['require'] && formGroup.get('fullName')?.touched">
+            <div class="" *ngIf="!formGroup.get('fullName')?.errors?.['require'] && formGroup.get('fullName')?.touched">
               Nome obrigatório
             </div>
           </mat-form-field>
 
-          <mat-form-field>
+          <mat-form-field class="col-6">
             <mat-label>E-mail</mat-label>
             <input matInput type="email" formControlName="email">
             <div *ngIf="!formGroup.get('email')?.errors?.['require'] && formGroup.get('email')?.touched">
               Campo e-mail é obrigatório.
             </div>
           </mat-form-field>
-        </div>
-
-        <div *ngSwitchCase="2">
-          <mat-form-field>
+          <mat-form-field class="col-6">
             <mat-label>Data de Nascimento</mat-label>
             <input [matDatepicker]="picker" formControlName="birthday" matInput>
             <div *ngIf="!formGroup.get('birthday')?.errors?.['require'] && formGroup.get('birthday')?.touched">
@@ -32,7 +29,7 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field>
+          <mat-form-field class="col-6">
             <mat-label>Sexo</mat-label>
             <mat-select formControlName="sex">
               <mat-option value="masculino">Masculino</mat-option>
@@ -43,8 +40,7 @@
             </div>
           </mat-form-field>
         </div>
-
-        <div *ngSwitchCase="2">
+        <div *ngSwitchCase="2" class="d-flex flex-column justify-content-between align-content-center">
           <mat-form-field>
             <mat-label>Você tem alguma doença?</mat-label>
             <mat-select [multiple]="true" formControlName="diseases">
@@ -54,47 +50,32 @@
               <mat-option value="lupus">Lupus</mat-option>
             </mat-select>
           </mat-form-field>
+          <mat-checkbox formControlName="haveCancer">Eu já tive/tenho câncer</mat-checkbox>
+
+          <mat-checkbox formControlName="cancerHistory">Tenho histórico de câncer na família</mat-checkbox>
         </div>
 
         <div *ngSwitchCase="3">
           <mat-checkbox formControlName="smoke">Eu fumo</mat-checkbox>
 
           <mat-checkbox formControlName="quitSmoke">Eu era fumante</mat-checkbox>
+          <mat-checkbox formControlName="drink">Eu bebo</mat-checkbox>
+          <mat-checkbox formControlName="consumeMate">Eu bebo chimarrão</mat-checkbox>
+          <mat-checkbox formControlName="wentDentist">Eu fui ao dentista nos últimos 12 meses</mat-checkbox>
         </div>
 
         <div *ngSwitchCase="4">
-
-          <mat-checkbox formControlName="drink">Eu bebo</mat-checkbox>
-
-          <mat-checkbox formControlName="haveCancer">Eu já tive/tenho câncer</mat-checkbox>
-
-          <mat-checkbox formControlName="cancerHistory">Tenho histórico de câncer na família</mat-checkbox>
-
-        </div>
-
-        <div *ngSwitchCase="5">
-
-          <mat-checkbox formControlName="wentDentist">Eu fui ao dentista nos últimos 12 meses</mat-checkbox>
-
           <mat-checkbox formControlName="sunscreen">Eu uso protetor solar</mat-checkbox>
-
           <mat-checkbox formControlName="sunstroke">Eu já tive câncer de pele</mat-checkbox>
-
-        </div>
-
-        <div *ngSwitchCase="6">
-
-          <mat-checkbox formControlName="consumeMate">Eu bebo chimarrão</mat-checkbox>
-
           <mat-checkbox formControlName="skinLesion">Eu tenho lesões na pele</mat-checkbox>
-
           <button mat-raised-button type="submit">Enviar</button>
-
         </div>
 
       </div>
+      <div class="col-6 offset-3 mt-5">
 
-      <button mat-raised-button type="button" (click)="next()">Avançar</button>
+        <button class="col-12" mat-raised-button type="button" (click)="next()">Avançar</button>
+      </div>
 
     </form>
   </mat-card>

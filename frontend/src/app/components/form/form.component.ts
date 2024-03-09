@@ -73,10 +73,7 @@ export class FormComponent {
   next() {
     switch (this.screenShowed) {
       case 1:
-        !this.fieldsValidation(['fullName', 'email']) ? this.screenShowed++ : this.screenShowed;
-        break;
-      case 2:
-        !this.fieldsValidation(['birthday', 'sex']) ? this.screenShowed++ : this.screenShowed;
+        !this.fieldsValidation(['fullName', 'email', 'birthday', 'sex']) ? this.screenShowed++ : this.screenShowed;
         break;
       default:
         this.screenShowed++;
