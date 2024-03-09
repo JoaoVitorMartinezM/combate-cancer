@@ -48,10 +48,12 @@
         </div>
 
         <div *ngSwitchCase="3">
-          <mat-select formControlName="smoke">
+          <mat-form-field class="col-6">
             <mat-label>Tabagismo</mat-label>
-            <mat-option *ngfor="let option of smokeOptions" [value]="option.id">{{ option.label }}</mat-option>
-          </mat-select>
+            <mat-select formControlName="smoke">
+              <mat-option *ngFor="let option of smokeOptions" [value]="option">{{ option.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 <!--          <mat-checkbox formControlName="smoke">Eu fumo</mat-checkbox>-->
 <!--          <mat-checkbox formControlName="quitSmoke">Eu era fumante</mat-checkbox>-->
 <!--          <mat-checkbox formControlName="drink">Eu bebo</mat-checkbox>-->

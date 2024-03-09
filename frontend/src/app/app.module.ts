@@ -26,6 +26,7 @@ import { FormComponent } from './components/form/form.component';
 import {HomeComponent} from "./pages/home/home.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,

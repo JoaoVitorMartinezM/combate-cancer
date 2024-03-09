@@ -3,16 +3,17 @@ import {FormBuilder, FormGroup, NonNullableFormBuilder, ValidationErrors, Valida
 import {FormService} from "../../service/form.service";
 import {retry} from "rxjs";
 import {SmokeOption} from "../../model/smokeOption.model";
+import {NgFor} from "@angular/common";
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
 
   formGroup: FormGroup;
-  screenShowed: number = 1;
+  screenShowed: number = 3;
 
   smokeOptions: Array<SmokeOption> = [];
 
