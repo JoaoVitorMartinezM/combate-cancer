@@ -50,6 +50,8 @@ export class FormComponent {
       sunstroke: [false, [Validators.required]],
       skinLesion: [false, [Validators.required]],
     })
+
+    this.listenToAgeChange()
   }
 
   submit() {
@@ -70,6 +72,15 @@ export class FormComponent {
     }
   }
 
+  listenToAgeChange(){
+    this.formGroup.get("fullName")?.valueChanges.subscribe(fullName=>{
+      if(fullName){
+        this.formGroup.get("fullName")?.setErrors(null)  // <--- Set invalidNumber to true
+      }
+    })
+  }
+
+
   next() {
     switch (this.screenShowed) {
       case 1:
@@ -81,19 +92,11 @@ export class FormComponent {
     }
   }
 
-  // fieldsValidation() : number {
-  //   let errorsCounter = 0;
-  //   Object.keys(this.formGroup.controls).forEach(key => {
-  //     this.formGroup.controls[key].errors ? errorsCounter++ : errorsCounter
-  //     this.formGroup.get(key)?.markAsTouched()
-  //   });
-  //   return errorsCounter;
-  // }
-
   fieldsValidation(fields : string[]) : boolean{
     this.result = []
     Object.keys(this.formGroup.controls).forEach(key => {
       const controlErrors: ValidationErrors | null | undefined = this.formGroup.get(key)?.errors;
+
       if (controlErrors && fields.indexOf(key) !== -1) {
         this.formGroup.get(key)?.markAsTouched()
         Object.keys(controlErrors).forEach(keyError => {

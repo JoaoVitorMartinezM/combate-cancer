@@ -7,24 +7,18 @@
           <mat-form-field class="col-6">
             <mat-label>Nome</mat-label>
             <input matInput type="text" formControlName="fullName">
-            <div class="" *ngIf="!formGroup.get('fullName')?.errors?.['require'] && formGroup.get('fullName')?.touched">
-              Nome obrigatório
-            </div>
+            <mat-error *ngIf="formGroup.get('fullName')?.invalid" >Campo nome obrigatório.</mat-error>
           </mat-form-field>
 
           <mat-form-field class="col-6">
             <mat-label>E-mail</mat-label>
             <input matInput type="email" formControlName="email">
-            <div *ngIf="!formGroup.get('email')?.errors?.['require'] && formGroup.get('email')?.touched">
-              Campo e-mail é obrigatório.
-            </div>
+            <mat-error *ngIf="formGroup.get('email')?.invalid" >Campo email obrigatório.</mat-error>
           </mat-form-field>
           <mat-form-field class="col-6">
             <mat-label>Data de Nascimento</mat-label>
             <input [matDatepicker]="picker" formControlName="birthday" matInput>
-            <div *ngIf="!formGroup.get('birthday')?.errors?.['require'] && formGroup.get('birthday')?.touched">
-              Campo data é obrigatório.
-            </div>
+            <mat-error *ngIf="formGroup.get('birthday')?.invalid" >Campo data de nascimento obrigatório.</mat-error>
             <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -35,9 +29,7 @@
               <mat-option value="masculino">Masculino</mat-option>
               <mat-option value="feminino">Feminino</mat-option>
             </mat-select>
-            <div *ngIf="!formGroup.get('sex')?.errors?.['require'] && formGroup.get('sex')?.touched">
-              Campo sexo é obrigatório.
-            </div>
+            <mat-error *ngIf="formGroup.get('sex')?.invalid" >Campo sexo obrigatório.</mat-error>
           </mat-form-field>
         </div>
         <div *ngSwitchCase="2" class="d-flex flex-column justify-content-between align-content-center">
