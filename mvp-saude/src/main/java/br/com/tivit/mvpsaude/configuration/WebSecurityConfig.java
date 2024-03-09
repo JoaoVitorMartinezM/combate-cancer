@@ -37,6 +37,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( (authorize) -> authorize
                 .requestMatchers("/form").permitAll()
+                .requestMatchers("/smoke").permitAll()
                 .anyRequest().authenticated()
         )
                 .csrf(AbstractHttpConfigurer::disable)
