@@ -4,14 +4,17 @@ export interface Form {
   birthday: Date;
   sex: string;
   diseases: string;
-  smoke: boolean;
-  quitSmoke: boolean;
-  drink: boolean;
-  haveCancer: boolean;
-  cancerHistory: boolean;
-  wentDentist: boolean;
-  sunscreen: boolean;
-  consumeMate: boolean;
-  sunstroke: boolean;
-  skinLesion: boolean;
+  smoke: string;
+  drink: string;
+  sunscreen: string;
+  skin: string;
+  dentist: string;
+  cancer: string;
+  // haveCancer: boolean;
+  // cancerHistory: boolean;
+  // consumeMate: boolean;
+  // quitSmoke: boolean;
+  // sunstroke: boolean;
+  // wentDentist: boolean;
+  // skinLesion: boolean;
 }

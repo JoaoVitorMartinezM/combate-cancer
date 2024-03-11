@@ -1,38 +1,40 @@
-<div class="d-flex justify-content-center">
-  <mat-card class="w-50">
-    <form [formGroup]="formGroup" (ngSubmit)="submit()" class="d-flex flex-column px-4">
-      <div [ngSwitch]="screenShowed">
+<div class="d-flex justify-content-center h-75">
+  <mat-card class="w-50 row ">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" class="d-flex flex-column justify-content-evenly align-items-start px-5 py-5 col-12">
 
-        <div *ngSwitchCase="1">
-          <mat-form-field>
+      <div [ngSwitch]="screenShowed" class="col-12">
+        <div *ngSwitchCase="1" >
+          <h2>DADOS PESSOAIS</h2>
+          <mat-form-field class="col-6" >
             <mat-label>Nome</mat-label>
             <input matInput type="text" formControlName="fullName">
+            <mat-error *ngIf="formGroup.get('fullName')?.invalid" >Campo nome obrigatório.</mat-error>
           </mat-form-field>
 
-          <mat-form-field>
+          <mat-form-field class="col-6">
             <mat-label>E-mail</mat-label>
             <input matInput type="email" formControlName="email">
+            <mat-error *ngIf="formGroup.get('email')?.invalid" >Campo email obrigatório.</mat-error>
           </mat-form-field>
-        </div>
-
-        <div *ngSwitchCase="2">
-          <mat-form-field>
+          <mat-form-field class="col-6">
             <mat-label>Data de Nascimento</mat-label>
             <input [matDatepicker]="picker" formControlName="birthday" matInput>
+            <mat-error *ngIf="formGroup.get('birthday')?.invalid" >Campo data de nascimento obrigatório.</mat-error>
             <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field>
+          <mat-form-field class="col-6">
             <mat-label>Sexo</mat-label>
             <mat-select formControlName="sex">
               <mat-option value="masculino">Masculino</mat-option>
               <mat-option value="feminino">Feminino</mat-option>
             </mat-select>
+            <mat-error *ngIf="formGroup.get('sex')?.invalid" >Campo sexo obrigatório.</mat-error>
           </mat-form-field>
         </div>
-
-        <div *ngSwitchCase="2">
+        <div *ngSwitchCase="2" class="d-flex flex-column justify-content-between align-content-center">
+          <h2>TITULO</h2>
           <mat-form-field>
             <mat-label>Você tem alguma doença?</mat-label>
             <mat-select [multiple]="true" formControlName="diseases">
@@ -42,47 +44,77 @@
               <mat-option value="lupus">Lupus</mat-option>
             </mat-select>
           </mat-form-field>
+          <mat-form-field class="col-6" >
+<!--            Por que não posso usar ngFor na tag mat-form-field e usar as variáveis na tag filha?-->
+            <mat-label>Dentista</mat-label>
+            <mat-select [multiple]="true" formControlName="dentist">
+              <mat-option *ngFor="let option of dentistOptions" [id]="option.id" [value]="option.label">{{ option.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
         <div *ngSwitchCase="3">
-          <mat-checkbox formControlName="smoke">Eu fumo</mat-checkbox>
+          <h2>TITULO</h2>
+          <mat-form-field class="col-6">
+            <mat-label>Tabagismo</mat-label>
+            <mat-select [multiple]="true" formControlName="smoke">
+              <mat-option *ngFor="let option of smokeOptions" [value]="option.label">{{ option.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-          <mat-checkbox formControlName="quitSmoke">Eu era fumante</mat-checkbox>
-        </div>
+          <mat-form-field class="col-6">
+            <mat-label>Alcolismo</mat-label>
+            <mat-select [multiple]="true" formControlName="drink">
+              <mat-option *ngFor="let option of drinkOptions" [value]="option.label">{{ option.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <div *ngSwitchCase="4">
+          <mat-form-field class="col-6">
+            <mat-label>Lesões da pele</mat-label>
+            <mat-select [multiple]="true" formControlName="skin">
+              <mat-option *ngFor="let option of sunstrokeOptions" [value]="option.label">{{ option.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-          <mat-checkbox formControlName="drink">Eu bebo</mat-checkbox>
+          <mat-form-field class="col-6">
+            <mat-label>Protetor Solar</mat-label>
+            <mat-select [multiple]="true" formControlName="sunscreen">
+              <mat-option *ngFor="let option of sunscreenOptions" [value]="option.label">{{ option.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-          <mat-checkbox formControlName="haveCancer">Eu já tive/tenho câncer</mat-checkbox>
-
-          <mat-checkbox formControlName="cancerHistory">Tenho histórico de câncer na família</mat-checkbox>
-
-        </div>
-
-        <div *ngSwitchCase="5">
-
-          <mat-checkbox formControlName="wentDentist">Eu fui ao dentista nos últimos 12 meses</mat-checkbox>
-
-          <mat-checkbox formControlName="sunscreen">Eu uso protetor solar</mat-checkbox>
-
-          <mat-checkbox formControlName="sunstroke">Eu já tive câncer de pele</mat-checkbox>
-
-        </div>
-
-        <div *ngSwitchCase="6">
-
-          <mat-checkbox formControlName="consumeMate">Eu bebo chimarrão</mat-checkbox>
-
-          <mat-checkbox formControlName="skinLesion">Eu tenho lesões na pele</mat-checkbox>
+          <mat-form-field class="col-6">
+            <mat-label>Câncer</mat-label>
+            <mat-select [multiple]="true" formControlName="cancer">
+              <mat-option *ngFor="let option of cancerOptions" [value]="option.label">{{ option.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
           <button mat-raised-button type="submit">Enviar</button>
 
         </div>
+        <!--          <mat-checkbox formControlName="haveCancer">Eu já tive/tenho câncer</mat-checkbox>-->
+
+        <!--          <mat-checkbox formControlName="cancerHistory">Tenho histórico de câncer na família</mat-checkbox>-->
+        <!--          <mat-checkbox formControlName="smoke">Eu fumo</mat-checkbox>-->
+        <!--          <mat-checkbox formControlName="quitSmoke">Eu era fumante</mat-checkbox>-->
+        <!--          <mat-checkbox formControlName="drink">Eu bebo</mat-checkbox>-->
+        <!--          <mat-checkbox formControlName="consumeMate">Eu bebo chimarrão</mat-checkbox>-->
+        <!--          <mat-checkbox formControlName="wentDentist">Eu fui ao dentista nos últimos 12 meses</mat-checkbox>-->
+
+        <!--        <div *ngSwitchCase="4">-->
+        <!--          <h2>TITULO</h2>-->
+        <!--          <mat-checkbox formControlName="sunscreen">Eu uso protetor solar</mat-checkbox>-->
+        <!--          <mat-checkbox formControlName="sunstroke">Eu já tive câncer de pele</mat-checkbox>-->
+        <!--          <mat-checkbox formControlName="skinLesion">Eu tenho lesões na pele</mat-checkbox>-->
+        <!--        </div>-->
+        <div class="col-6 offset-3 mt-5">
+
+          <button class="col-12" mat-raised-button type="button" (click)="next()">Avançar</button>
+        </div>
 
       </div>
 
-      <button mat-raised-button type="button" (click)="next()">Avançar</button>
 
     </form>
   </mat-card>
