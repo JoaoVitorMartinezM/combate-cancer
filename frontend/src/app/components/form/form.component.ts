@@ -4,6 +4,7 @@ import {FormService} from "../../service/form.service";
 import {retry} from "rxjs";
 import {SmokeOption} from "../../model/smokeOption.model";
 import {NgFor} from "@angular/common";
+import {FieldModel} from "../../model/field.model";
 
 @Component({
   selector: 'app-form',
@@ -13,9 +14,14 @@ import {NgFor} from "@angular/common";
 export class FormComponent {
 
   formGroup: FormGroup;
-  screenShowed: number = 3;
+  screenShowed: number = 1;
 
-  smokeOptions: Array<SmokeOption> = [];
+  smokeOptions: Array<FieldModel> = [];
+  drinkOptions: Array<FieldModel> = [];
+  sunscreenOptions: Array<FieldModel> = [];
+  sunstrokeOptions: Array<FieldModel> = [];
+  cancerOptions: Array<FieldModel> = [];
+  dentistOptions: Array<FieldModel> = [];
 
   fullName?: string;
   email?: string;
@@ -37,12 +43,49 @@ export class FormComponent {
 
   constructor(private fb: NonNullableFormBuilder, private formService: FormService) {
 
-    this.formService.getSmokeOption().subscribe({
+    this.formService.getDrinkOptions().subscribe({
+      next: (data) => {
+        this.drinkOptions = data;
+      }
+
+    });
+
+    this.formService.getSmokeOptions().subscribe({
       next: (data) => {
         this.smokeOptions = data;
       }
 
     });
+
+    this.formService.getCancerOptions().subscribe({
+      next: (data) => {
+        this.cancerOptions = data;
+      }
+
+    });
+
+    this.formService.getSunscreenOptions().subscribe({
+      next: (data) => {
+        this.sunscreenOptions = data;
+      }
+
+    });
+
+    this.formService.getSunstrokeOptions().subscribe({
+      next: (data) => {
+        this.sunstrokeOptions = data;
+      }
+
+    });
+
+    this.formService.getDentistOptions().subscribe({
+      next: (data) => {
+        this.dentistOptions = data;
+      }
+
+    });
+
+
 
     this.formGroup = fb.group({
       fullName: ['', [Validators.required]],
@@ -50,16 +93,18 @@ export class FormComponent {
       birthday: ['', [Validators.required]],
       sex: ['', [Validators.required]],
       diseases: [[''], [Validators.required]],
-      smoke: [false, [Validators.required]],
-      quitSmoke: [false, [Validators.required]],
-      drink: [false, [Validators.required]],
-      haveCancer: [false, [Validators.required]],
-      cancerHistory: [false, [Validators.required]],
-      wentDentist: [false, [Validators.required]],
-      sunscreen: [false, [Validators.required]],
-      consumeMate: [false, [Validators.required]],
-      sunstroke: [false, [Validators.required]],
-      skinLesion: [false, [Validators.required]],
+      smoke: [[''], [Validators.required]],
+      skin: [[''], [Validators.required]],
+      dentist: [[''], [Validators.required]],
+      cancer: [[''], [Validators.required]],
+      drink: [[''], [Validators.required]],
+      sunscreen: [[''], [Validators.required]],
+      // quitSmoke: [false, [Validators.required]],
+      // haveCancer: [false, [Validators.required]],
+      // cancerHistory: [false, [Validators.required]],
+      // consumeMate: [false, [Validators.required]],
+      // sunstroke: [false, [Validators.required]],
+      // skinLesion: [false, [Validators.required]],
     })
 
     this.listenToAgeChange()
@@ -79,7 +124,7 @@ export class FormComponent {
           }
         });
     } else {
-      alert('n fode');
+      alert('Exceção');
     }
   }
 

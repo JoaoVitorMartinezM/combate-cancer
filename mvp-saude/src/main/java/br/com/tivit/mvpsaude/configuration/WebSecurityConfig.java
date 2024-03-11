@@ -38,6 +38,8 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests( (authorize) -> authorize
                 .requestMatchers("/form").permitAll()
                 .requestMatchers("/smoke").permitAll()
+                .requestMatchers("/fields").permitAll()
+                .requestMatchers("/fields/*").permitAll()
                 .anyRequest().authenticated()
         )
                 .csrf(AbstractHttpConfigurer::disable)
