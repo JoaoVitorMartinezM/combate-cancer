@@ -13,6 +13,7 @@ export class FormService {
   constructor(private http: HttpClient) { }
 
   submit(form: Form): Observable<Boolean> {
+    console.log(form);
     return this.http.post<Boolean>(environment.apiUrl + '/form', form);
   }
 
